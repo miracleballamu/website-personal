@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Number Validator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #5b3d00, #c99a19);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 320px;
+            z-index: 2;
+            position: relative;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        h2 {
+            color: #01235c;
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #32ceea;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #ea3232;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: #ff5773;
+            transform: scale(1.05);
+        }
+
+        #message {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fire-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .fire-particle {
+            position: absolute;
+            width: 8px;
+            height: 16px;
+            background: linear-gradient(to top, rgba(251, 230, 2, 0.9), rgba(248, 194, 76, 0.2));
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 10px rgba(254, 202, 68, 0.8), 0 0 20px rgba(253, 232, 74, 0.5);
+            animation: fireRise 2s infinite ease-in;
+        }
+
+        @keyframes fireRise {
+            0% {
+                transform: translateY(100vh) scale(0.7) rotate(0deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(50vh) scale(1.1) rotate(15deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh) scale(0.4) rotate(-10deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="fire-particles">
+        <div class="fire-particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="fire-particle" style="left: 20%; animation-delay: 0.5s;"></div>
+        <div class="fire-particle" style="left: 30%; animation-delay: 1s;"></div>
+        <div class="fire-particle" style="left: 40%; animation-delay: 1.5s;"></div>
+        <div class="fire-particle" style="left: 50%; animation-delay: 0.2s;"></div>
+        <div class="fire-particle" style="left: 60%; animation-delay: 0.8s;"></div>
+        <div class="fire-particle" style="left: 70%; animation-delay: 1.2s;"></div>
+        <div class="fire-particle" style="left: 80%; animation-delay: 0.4s;"></div>
+        <div class="fire-particle" style="left: 90%; animation-delay: 1.8s;"></div>
+    </div>
+
+    <div class="container">
+        <h2>Scientific Number Validator</h2>
+        <input type="text" id="inputNumber" placeholder="Enter a number">
+        <button onclick="validateNumber()">Check</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        function validateNumber() {
+            const input = document.getElementById('inputNumber').value.trim();
+            const scientificNumberPattern = /^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/;
+            
+            if (input === '') {
+                document.getElementById('message').innerText = "Please enter a number";
+                document.getElementById('message').style.color = "orange";
+            } else if (scientificNumberPattern.test(input)) {
+                document.getElementById('message').innerText = "Yes, it is a scientific number";
+                document.getElementById('message').style.color = "green";
+            } else {
+                document.getElementById('message').innerText = "No, it is not a scientific number";
+                document.getElementById('message').style.color = "red";
+            }
+        }
+
+        document.getElementById('inputNumber').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                validateNumber();
+            }
+        });
+    </script>
+</body>
+</html>
